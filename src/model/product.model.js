@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
-  _id: { type: mongoose.Types.ObjectId },
+  _id: { type: mongoose.Types.ObjectId, auto: true },
   title: {
     type: String,
     required: true,
@@ -22,7 +22,7 @@ const schema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: [true, "product image is required"],
+    // required: [true, "product image is required"],
     default: "./default_cover.jpg",
   },
 });

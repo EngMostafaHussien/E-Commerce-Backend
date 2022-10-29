@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-require("../model/student.model");
+require("../model/product.model");
 
-let Student = mongoose.model("students");
+let Product = mongoose.model("products");
 
-module.exports.getAllStudents = (request, response, next) => {
-  Student.find({})
+module.exports.getAllProducts = (request, response, next) => {
+  Product.find({})
     .then((data) => {
       response.status(200).json(data);
     })
@@ -13,10 +13,10 @@ module.exports.getAllStudents = (request, response, next) => {
     });
 };
 
-module.exports.getStudentByID = (request, response, next) => {
-  Student.findOne({ _id: request.params.id })
+module.exports.getProductByID = (request, response, next) => {
+  Product.findOne({ _id: request.params.id })
     .then((data) => {
-      if (data == null) next(new Error(" Student not found"));
+      if (data == null) next(new Error(" Product not found"));
       response.status(200).json(data);
     })
     .catch((error) => {
@@ -24,13 +24,14 @@ module.exports.getStudentByID = (request, response, next) => {
     });
 };
 
-module.exports.createStudent = (request, response, next) => {
-  let object = new Student({
-    _id: request.body.id,
-    fullname: request.body.fullname,
-    password: request.body.password,
-    email: request.body.email,
+module.exports.createProduct = (request, response, next) => {
+  let object = new Product({
+    title: request.body.title,
+    price: request.body.price,
+    description: request.body.description,
+    category: request.body.category,
   });
+
   object
     .save()
     .then((data) => {
@@ -39,9 +40,9 @@ module.exports.createStudent = (request, response, next) => {
     .catch((error) => next(error));
 };
 
-module.exports.updateStudent = async (request, response, next) => {
+module.exports.updateProduct = async (request, response, next) => {
   try {
-    const data = await Student.findById(request.body.id);
+    const data = await Product.findById(request.body.id);
     for (const key in request.body) {
       data[key] = request.body[key];
     }
@@ -53,11 +54,11 @@ module.exports.updateStudent = async (request, response, next) => {
   }
 };
 
-module.exports.deleteStudent = (request, response, next) => {
-  Student.deleteOne({ _id: request.params.id })
+module.exports.deleteProduct = (request, response, next) => {
+  Product.deleteOne({ _id: request.params.id })
     .then((data) => {
       if (!data) {
-        next(new Error(" Student not found"));
+        next(new Error(" Product not found"));
       } else {
         response.status(200).json({ data: "deleted" });
       }
@@ -67,9 +68,9 @@ module.exports.deleteStudent = (request, response, next) => {
     });
 };
 
-module.exports.uploadStudent = (request, response, next) => {
+module.exports.uploadProduct = (request, response, next) => {
   console.log(request.file);
-  Student.findOne({ _id: request.params.id })
+  Product.findOne({ _id: request.params.id })
     .then((data) => {
       response.status(200).json({ data: "uploaded" });
     })

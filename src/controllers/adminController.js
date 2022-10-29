@@ -4,37 +4,10 @@ const Admin = require("../model/admin.model");
 const saltRounds = 10;
 
 // Get All Admins
-// module.exports.getAllAdmins = (request, response, next) => {
-//     Admin.find({})
-//         .then((data) => {
-//             response.status(200).json(data)
-//         })
-//         .catch((error) => {
-//             next(error)
-//         })
-// }
-
-module.exports.getAdminsByPage = (request, response, next) => {
-  Admin.paginate(
-    {},
-    {
-      page: request.query.page || 1,
-      // select: '',
-    }
-  )
+module.exports.getAllAdmins = (request, response, next) => {
+  Admin.find({})
     .then((data) => {
-      console.log(data);
-      response.status(200).json({
-        // currentPage: data.page,
-        // previousPage: data.prevPage,
-        // nextPage: data.nextPage,
-        // totalPages: data.totalPages,
-        // totalAdmins: data.totalDocs,
-        // adminsDisplayed: data.docs.length,
-        // remained: data.totalDocs - data.docs.length,
-        // results: data.docs,
-        data: "get all admins",
-      });
+      response.status(200).json(data);
     })
     .catch((error) => {
       next(error);
@@ -100,3 +73,30 @@ module.exports.deleteAdmin = (request, response, next) => {
       next(error);
     });
 };
+
+// module.exports.getAdminsByPage = (request, response, next) => {
+//   Admin.paginate(
+//     {},
+//     {
+//       page: request.query.page || 1,
+//       // select: '',
+//     }
+//   )
+//     .then((data) => {
+//       console.log(data);
+//       response.status(200).json({
+//         // currentPage: data.page,
+//         // previousPage: data.prevPage,
+//         // nextPage: data.nextPage,
+//         // totalPages: data.totalPages,
+//         // totalAdmins: data.totalDocs,
+//         // adminsDisplayed: data.docs.length,
+//         // remained: data.totalDocs - data.docs.length,
+//         // results: data.docs,
+//         data: "get all admins",
+//       });
+//     })
+//     .catch((error) => {
+//       next(error);
+//     });
+// };

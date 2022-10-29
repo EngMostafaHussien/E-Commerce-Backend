@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-require("../model/speaker.model");
+require("../model/user.model");
 
-let Speaker = mongoose.model("speakers");
+let User = mongoose.model("users");
 
-module.exports.getAllSpeakers = (request, response, next) => {
-  Speaker.find({})
+module.exports.getAllUsers = (request, response, next) => {
+  User.find({})
     .then((data) => {
       response.status(200).json(data);
     })
@@ -13,8 +13,8 @@ module.exports.getAllSpeakers = (request, response, next) => {
     });
 };
 
-module.exports.getSpeakerByID = (request, response, next) => {
-  Speaker.findOne({ _id: request.params.id })
+module.exports.getUserByID = (request, response, next) => {
+  User.findOne({ _id: request.params.id })
     .then((data) => {
       if (data == null) next(new Error(" teacher not found"));
       response.status(200).json(data);
@@ -24,13 +24,14 @@ module.exports.getSpeakerByID = (request, response, next) => {
     });
 };
 
-module.exports.createSpeaker = (request, response, next) => {
-  let object = new Speaker({
-    fullname: request.body.fullname,
+module.exports.createUser = (request, response, next) => {
+  let object = new User({
+    name: request.body.name,
     password: request.body.password,
     email: request.body.email,
     address: request.body.address,
-    role: request.body.role,
+    gender: request.body.gender,
+    phone: request.body.phone,
   });
   object
     .save()
@@ -40,9 +41,9 @@ module.exports.createSpeaker = (request, response, next) => {
     .catch((error) => next(error));
 };
 
-module.exports.updateSpeaker = async (request, response, next) => {
+module.exports.updateUser = async (request, response, next) => {
   try {
-    const data = await Speaker.findById(request.body.id);
+    const data = await User.findById(request.body.id);
     for (const key in request.body) {
       data[key] = request.body[key];
     }
@@ -54,11 +55,11 @@ module.exports.updateSpeaker = async (request, response, next) => {
   }
 };
 
-module.exports.deleteSpeaker = (request, response, next) => {
-  Speaker.deleteOne({ _id: request.params.id })
+module.exports.deleteUser = (request, response, next) => {
+  User.deleteOne({ _id: request.params.id })
     .then((data) => {
       if (!data) {
-        next(new Error(" Speaker not found"));
+        next(new Error(" User not found"));
       } else {
         response.status(200).json({ data: "deleted" });
       }
@@ -68,9 +69,9 @@ module.exports.deleteSpeaker = (request, response, next) => {
     });
 };
 
-module.exports.uploadSpeaker = (request, response, next) => {
+module.exports.uploadUser = (request, response, next) => {
   console.log(request.file);
-  Speaker.findOne({ _id: request.params.id })
+  User.findOne({ _id: request.params.id })
     .then((data) => {
       response.status(200).json({ data: "uploaded" });
     })

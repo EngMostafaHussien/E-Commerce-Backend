@@ -26,7 +26,6 @@ module.exports.loginUser = (request, response, next) => {
             error.status = 401;
             throw error;
           }
-
           const token = jwt.sign(
             {
               id: data._id,
@@ -70,7 +69,6 @@ module.exports.loginAdmin = (request, response, next) => {
               id: data._id,
               role: "Admin",
             },
-            appConfig.jwtSecret,
             { expiresIn: "24h" }
           );
           response.status(200).json({ token, message: "login" });

@@ -1,13 +1,6 @@
 const mongoose = require("mongoose");
 const addressSchema = require("./address.model");
 
-// const addressSchema = new mongoose.Schema({
-//   _id: { type: false },
-//   building: { type: Number },
-//   street: { type: String },
-//   city: { type: String },
-// });
-
 const schema = new mongoose.Schema({
   _id: { type: mongoose.Types.ObjectId, auto: true },
   name: {
