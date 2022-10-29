@@ -3,17 +3,10 @@ const addressSchema = require("./address.model");
 
 const schema = new mongoose.Schema({
   _id: { type: mongoose.Types.ObjectId, auto: true },
-  name: {
-    firstName: {
-      type: String,
-      minlength: 3,
-      required: [true, "user fullName is required"],
-    },
-    lastName: {
-      type: String,
-      minlength: 3,
-      required: [true, "user fullName is required"],
-    },
+  fullName: {
+    type: String,
+    minlength: 3,
+    required: [true, "user fullName is required"],
   },
   age: {
     type: Number,
@@ -23,7 +16,6 @@ const schema = new mongoose.Schema({
     type: String,
     unique: true,
     required: [true, "user email is required"],
-    // match:{}
   },
   gender: {
     type: String,
