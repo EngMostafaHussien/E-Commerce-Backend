@@ -4,7 +4,7 @@ const User = require("../model/user.model");
 const Admin = require("../model/admin.model");
 
 module.exports.loginUser = (request, response, next) => {
-  console.log(request.body.email, "-", "request.body.password");
+  console.log(request.body.email);
 
   User.findOne({
     email: request.body.email,

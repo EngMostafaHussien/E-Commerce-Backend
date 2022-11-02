@@ -40,7 +40,7 @@ const schema = new mongoose.Schema({
 
   image: {
     type: String,
-    default: "./user.jpg",
+    default: "../utilities/images/user.jpg",
   },
   favorites: {
     type: mongoose.Types.ObjectId,

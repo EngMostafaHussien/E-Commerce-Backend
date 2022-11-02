@@ -8,6 +8,7 @@ module.exports.signup = (request, response, next) => {
     age: request.body.age,
     gender: request.body.gender,
     email: request.body.email,
+    password: request.body.password,
     phone: request.body.phone,
   };
 

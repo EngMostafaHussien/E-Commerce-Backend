@@ -23,7 +23,7 @@ const schema = new mongoose.Schema({
   image: {
     type: String,
     // required: [true, "product image is required"],
-    default: "./default_cover.jpg",
+    default: "../utilities/images/default_cover.jpg",
   },
 });
 
