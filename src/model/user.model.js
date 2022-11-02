@@ -2,31 +2,41 @@ const mongoose = require("mongoose");
 const addressSchema = require("./address.model");
 
 const schema = new mongoose.Schema({
-  _id: { type: mongoose.Types.ObjectId, auto: true },
+  _id: {
+    type: mongoose.Types.ObjectId,
+    auto: true,
+  },
   fullName: {
     type: String,
-    minlength: 3,
-    required: [true, "user fullName is required"],
+    required: [true, "user name is required"],
+    match: [
+      /^[A-Z][A-Za-z ]{3,}[A-Z][A-Za-z ]{3,}[A-Z][A-Za-z ]{3,}$/,
+      "please enter fullName (three words)the first letter capital ",
+    ],
   },
   age: {
     type: Number,
+    min: 18,
     required: [true, "user age is required"],
   },
   email: {
     type: String,
     unique: true,
     required: [true, "user email is required"],
-  },
-  gender: {
-    type: String,
-    enum: ["male", "female"],
-    required: [true, "user gender is required"],
+    match: [
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      "Please fill a valid email address",
+    ],
   },
   password: {
     type: String,
     required: [true, "user password is required"],
   },
-  phone: { type: String, required: [true, "user phone is required"] },
+  phone: {
+    type: String,
+    required: [true, "user phone number is required"],
+    match: [/^(002)?^01[1205][0-9]{8}$/, "Please fill a valid phone number"],
+  },
 
   image: {
     type: String,

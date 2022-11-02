@@ -77,17 +77,3 @@ module.exports.loginAdmin = (request, response, next) => {
     })
     .catch((error) => next(error));
 };
-// const mongoose = require("mongoose");
-// require("../model/speaker.model");
-// require("../model/student.model");
-// let Speaker = mongoose.model("speakers");
-// let Student = mongoose.model("students");
-// const jwt = require('jsonwebtoken')
-// const appConfig = require('../config/app.config')
-// const dbConfig = require('../config/database.config')
-
-// function loginError() {
-//     const error = new Error('email or password incorrect')
-//     error.status = 401
-//     return error
-// }

@@ -3,8 +3,6 @@ const User = require("../model/user.model");
 const saltRounds = 10;
 
 module.exports.signup = (request, response, next) => {
-  // const hashedPassword
-
   const user = {
     fullName: `${request.body.firstName} ${request.body.middleName} ${request.body.lastName}`,
     age: request.body.age,

@@ -26,8 +26,9 @@ module.exports.getUserByID = (request, response, next) => {
 
 module.exports.createUser = (request, response, next) => {
   let object = new User({
-    name: request.body.name,
+    fullName: request.body.fullName,
     password: request.body.password,
+    age: request.body.age,
     email: request.body.email,
     address: request.body.address,
     gender: request.body.gender,
@@ -63,17 +64,6 @@ module.exports.deleteUser = (request, response, next) => {
       } else {
         response.status(200).json({ data: "deleted" });
       }
-    })
-    .catch((error) => {
-      next(error);
-    });
-};
-
-module.exports.uploadUser = (request, response, next) => {
-  console.log(request.file);
-  User.findOne({ _id: request.params.id })
-    .then((data) => {
-      response.status(200).json({ data: "uploaded" });
     })
     .catch((error) => {
       next(error);
