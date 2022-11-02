@@ -42,7 +42,7 @@ module.exports.loginUser = (request, response, next) => {
 };
 
 module.exports.loginAdmin = (request, response, next) => {
-  console.log(request.body.email, "-", "request.body.password");
+  console.log(request.body.email);
 
   Admin.findOne({
     email: request.body.email,

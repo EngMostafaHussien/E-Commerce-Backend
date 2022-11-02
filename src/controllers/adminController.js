@@ -73,30 +73,3 @@ module.exports.deleteAdmin = (request, response, next) => {
       next(error);
     });
 };
-
-// module.exports.getAdminsByPage = (request, response, next) => {
-//   Admin.paginate(
-//     {},
-//     {
-//       page: request.query.page || 1,
-//       // select: '',
-//     }
-//   )
-//     .then((data) => {
-//       console.log(data);
-//       response.status(200).json({
-//         // currentPage: data.page,
-//         // previousPage: data.prevPage,
-//         // nextPage: data.nextPage,
-//         // totalPages: data.totalPages,
-//         // totalAdmins: data.totalDocs,
-//         // adminsDisplayed: data.docs.length,
-//         // remained: data.totalDocs - data.docs.length,
-//         // results: data.docs,
-//         data: "get all admins",
-//       });
-//     })
-//     .catch((error) => {
-//       next(error);
-//     });
-// };

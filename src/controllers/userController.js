@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
-require("../model/user.model");
-
-let User = mongoose.model("users");
+const bcrypt = require("bcrypt");
+const User = require("../model/user.model");
+const saltRounds = 10;
 
 module.exports.getAllUsers = (request, response, next) => {
   User.find({})
@@ -16,7 +15,7 @@ module.exports.getAllUsers = (request, response, next) => {
 module.exports.getUserByID = (request, response, next) => {
   User.findOne({ _id: request.params.id })
     .then((data) => {
-      if (data == null) next(new Error(" teacher not found"));
+      if (data == null) next(new Error(" User not found"));
       response.status(200).json(data);
     })
     .catch((error) => {
@@ -25,19 +24,19 @@ module.exports.getUserByID = (request, response, next) => {
 };
 
 module.exports.createUser = (request, response, next) => {
-  let object = new User({
+  const object = new User({
     fullName: request.body.fullName,
-    password: request.body.password,
     age: request.body.age,
     email: request.body.email,
+    password: bcrypt.hashSync(request.body.password, saltRounds),
+    phone: request.body.phone,
     address: request.body.address,
     gender: request.body.gender,
-    phone: request.body.phone,
   });
   object
     .save()
     .then((data) => {
-      response.status(201).json({ data: "added" });
+      response.status(201).json({ data: "added", id: data._id });
     })
     .catch((error) => next(error));
 };

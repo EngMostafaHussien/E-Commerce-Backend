@@ -49,5 +49,5 @@ const schema = new mongoose.Schema({
   address: addressSchema,
 });
 
-mongoose.model("users", schema);
 mongoose.model("addressSchema", schema);
+module.exports = mongoose.model("users", schema);
