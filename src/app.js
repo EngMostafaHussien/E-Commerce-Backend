@@ -6,6 +6,7 @@ const loginRoute = require("./Routes/loginRoute");
 const registerRoute = require("./Routes/registerRoute");
 const adminRoute = require("./Routes/adminRoute");
 const userRoute = require("./Routes/userRoute");
+const productRoute = require("./Routes/productRoute");
 const { request, response } = require("express");
 const server = express();
 require("dotenv").config();
@@ -28,6 +29,7 @@ server.use(loginRoute);
 server.use(registerRoute);
 server.use(adminRoute);
 server.use(userRoute);
+server.use(productRoute);
 
 server.use((request, response) => {
   response.status(404).json({ message: "Not Found" });
