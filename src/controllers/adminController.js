@@ -28,25 +28,37 @@ module.exports.getAdminByID = (request, response, next) => {
 
 // Create Admin
 module.exports.createAdmin = (request, response, next) => {
-  const object = new Admin({
+  const addAdmin = new Admin({
     fullName: request.body.fullName,
     age: request.body.age,
     email: request.body.email,
-    password: bcrypt.hashSync(request.body.password, saltRounds),
+    password: request.body.password,
     phone: request.body.phone,
   });
-  object
-    .save()
+  Admin.exists({
+    $or: [{ email: addAdmin.email }, { phone: addAdmin.phone }],
+  })
     .then((data) => {
-      response.status(201).json({ data: "added", id: data._id });
+      console.log(data);
+      if (data) throw new Error("email or phone is duplicated");
+      return bcrypt.hash(request.body.password, saltRounds);
+    })
+    .then((hash) => {
+      addAdmin.password = hash;
+    })
+    .then(() => {
+      const object = new User(addAdmin);
+      return object.save();
+    })
+    .then((adminInfo) => {
+      response.status(201).json({ adminInfo });
     })
     .catch((error) => next(error));
 };
 
 // Update Admin By ID
 module.exports.updateAdmin = (request, response, next) => {
-  // console.log(request.body.id);
-  Admin.findById(request.body.id)
+  Admin.findById({ _id: request.body.id })
     .then((data) => {
       for (const key in request.body) {
         data[key] = request.body[key];

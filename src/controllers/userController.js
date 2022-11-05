@@ -24,26 +24,39 @@ module.exports.getUserByID = (request, response, next) => {
 };
 
 module.exports.createUser = (request, response, next) => {
-  const object = new User({
+  const addUser = new User({
     fullName: request.body.fullName,
     age: request.body.age,
     email: request.body.email,
-    password: bcrypt.hashSync(request.body.password, saltRounds),
+    password: request.body.password,
     phone: request.body.phone,
     address: request.body.address,
     gender: request.body.gender,
   });
-  object
-    .save()
+  User.exists({
+    $or: [{ email: addUser.email }, { phone: addUser.phone }],
+  })
     .then((data) => {
-      response.status(201).json({ data: "added", id: data._id });
+      console.log(data);
+      if (data) throw new Error("email or phone is duplicated");
+      return bcrypt.hash(request.body.password, saltRounds);
+    })
+    .then((hash) => {
+      addUser.password = hash;
+    })
+    .then(() => {
+      const object = new User(addUser);
+      return object.save();
+    })
+    .then((userInfo) => {
+      response.status(201).json({ userInfo });
     })
     .catch((error) => next(error));
 };
 
 module.exports.updateUser = async (request, response, next) => {
   try {
-    const data = await User.findById(request.body.id);
+    const data = await User.findById({ _id: request.params.id });
     for (const key in request.body) {
       data[key] = request.body[key];
     }

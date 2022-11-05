@@ -9,12 +9,12 @@ const router = express.Router();
 router
   .route("/users")
   .get(validationMW, userController.getAllUsers)
-  .post(validationMW, userController.createUser)
-  .put(validationMW, userController.updateUser);
+  .post(validationMW, userController.createUser);
 
 router
   .route("/user/:id")
   .get(validationMW, userController.getUserByID)
+  .put(validationMW, userController.updateUser)
   .delete(validationMW, userController.deleteUser);
 
 module.exports = router;
