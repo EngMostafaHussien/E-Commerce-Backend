@@ -42,7 +42,7 @@ module.exports.createProduct = (request, response, next) => {
 
 module.exports.updateProduct = async (request, response, next) => {
   try {
-    const data = await Product.findById(request.body.id);
+    const data = await Product.findById({ _id: request.params.id });
     for (const key in request.body) {
       data[key] = request.body[key];
     }
