@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const addressSchema = require("./address.model");
 
 const schema = new mongoose.Schema({
   _id: {
@@ -46,8 +45,20 @@ const schema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "products",
   },
-  address: addressSchema,
+  address: {
+    city: {
+      type: String,
+      required: [true, "address city is required"],
+    },
+    streetName: {
+      type: String,
+      required: [true, "address street name is required"],
+    },
+    buildingNumber: {
+      type: Number,
+      required: [true, "address building number is required"],
+    },
+  },
 });
 
-mongoose.model("addressSchema", schema);
 module.exports = mongoose.model("users", schema);

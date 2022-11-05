@@ -25,13 +25,13 @@ module.exports.getUserByID = (request, response, next) => {
 
 module.exports.createUser = (request, response, next) => {
   const addUser = new User({
-    fullName: request.body.fullName,
+    fullName: `${request.body.firstName} ${request.body.lastName}`,
     age: request.body.age,
+    gender: request.body.gender,
+    phone: request.body.phone,
     email: request.body.email,
     password: request.body.password,
-    phone: request.body.phone,
-    address: request.body.address,
-    gender: request.body.gender,
+    address: `${request.body.city} ${request.body.streetName} ${request.body.buildingNumber}`,
   });
   User.exists({
     $or: [{ email: addUser.email }, { phone: addUser.phone }],
