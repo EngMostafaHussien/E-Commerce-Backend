@@ -17,4 +17,13 @@ router
   .put(validationMW, userController.updateUser)
   .delete(validationMW, userController.deleteUser);
 
+router
+  .route("/user/favorites/:id")
+  .get(validationMW, userController.getAllFavProducts)
+  .put(validationMW, userController.updateFavProduct);
+
+router
+  .route("/user/favorites/:id/product")
+  .delete(validationMW, userController.removeFavProduct);
+
 module.exports = router;

@@ -47,7 +47,7 @@ module.exports.createAdmin = (request, response, next) => {
       addAdmin.password = hash;
     })
     .then(() => {
-      const object = new User(addAdmin);
+      const object = new Admin(addAdmin);
       return object.save();
     })
     .then((adminInfo) => {

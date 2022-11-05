@@ -6,12 +6,8 @@ const schema = new mongoose.Schema({
     auto: true,
   },
   fullName: {
-    type: String,
-    required: [true, "user name is required"],
-    match: [
-      /^[A-Z][A-Za-z ]{3,}[A-Z][A-Za-z ]{3,}[A-Z][A-Za-z ]{3,}$/,
-      "please enter fullName (three words)the first letter capital ",
-    ],
+    fisrtName: { type: String, required: [true, "user firstName is required"] },
+    lastName: { type: String, required: [true, "user lastName is required"] },
   },
   age: {
     type: Number,
@@ -41,10 +37,14 @@ const schema = new mongoose.Schema({
     type: String,
     default: "../utilities/images/user.jpg",
   },
-  favorites: {
-    type: mongoose.Types.ObjectId,
-    ref: "products",
-  },
+  favorites: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "products",
+    },
+  ],
+  cart: [{ type: mongoose.Types.ObjectId, ref: "carts" }],
+  
   address: {
     city: {
       type: String,

@@ -7,12 +7,14 @@ const schema = new mongoose.Schema({
     auto: true,
   },
   fullName: {
-    type: String,
-    required: [true, "admin name is required"],
-    match: [
-      /^[A-Z][A-Za-z ]{3,}[A-Z][A-Za-z ]{3,}[A-Z][A-Za-z ]{3,}$/,
-      "please enter fullName (three words)the first letter capital ",
-    ],
+    fisrtName: {
+      type: String,
+      required: [true, "admin firstName is required"],
+    },
+    lastName: {
+      type: String,
+      required: [true, "admin lastName is required"],
+    },
   },
   age: {
     type: Number,

@@ -46,7 +46,6 @@ module.exports.loginAdmin = (request, response, next) => {
 
   Admin.findOne({
     email: request.body.email,
-    // password: request.body.password,
   })
     .then((data) => {
       console.log(data);
@@ -69,6 +68,7 @@ module.exports.loginAdmin = (request, response, next) => {
               id: data._id,
               role: "Admin",
             },
+            process.env.secret,
             { expiresIn: "24h" }
           );
           response.status(200).json({ token, message: "login" });
